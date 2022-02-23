@@ -5,7 +5,7 @@
     </div>
     <div class="header-input">
       <span class="iconfont search">&#xe8ba;</span>
-    </div>
+    </div>  
     <div class="header-right">城市
       <span class="iconfont xiahua">&#xe6c8;</span>
     </div>
