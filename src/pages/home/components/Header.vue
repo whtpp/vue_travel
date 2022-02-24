@@ -5,19 +5,22 @@
     </div>
     <div class="header-input">
       <span class="iconfont search">&#xe8ba;</span>
-    </div>  
-    <div class="header-right">{{this.city}}
-      <span class="iconfont xiahua">&#xe6c8;</span>
     </div>
+    <router-link to="/city">
+      <div class="header-right">
+        {{ this.city }}
+        <span class="iconfont xiahua">&#xe6c8;</span>
+      </div></router-link>
+    
   </div>
 </template>
 
 <script>
 export default {
   name: "HomeHeader",
-  props:{
-    city:String
-  }
+  props: {
+    city: String,
+  },
 };
 </script>
 
@@ -49,26 +52,26 @@ export default {
   transform: translate(-53%, -50%);
 }
 .search {
-    position: absolute;
-    font-size:1.3rem;
-    color:rgb(126, 123, 123);
-    top:50%;
-    transform: translate(70%, -40%);
+  position: absolute;
+  font-size: 1.3rem;
+  color: rgb(126, 123, 123);
+  top: 50%;
+  transform: translate(70%, -40%);
 }
 .header-right {
-    position:absolute;
-    right: 0;
-    width: 4.3rem;
-    text-align: left;
-    line-height: 4rem;
-    color:rgb(114, 113, 113);
-    font-size: 1.2rem;
-    letter-spacing: 0.2rem;
+  position: absolute;
+  right: 0;
+  width: 4.3rem;
+  text-align: left;
+  line-height: 4rem;
+  color: rgb(114, 113, 113);
+  font-size: 1.2rem;
+  letter-spacing: 0.2rem;
 }
 .xiahua {
   position: absolute;
   color: rgb(110, 108, 108);
-  right:0.2rem;
+  right: 0.2rem;
 }
 </style>
 
