@@ -5,13 +5,14 @@
     </div>
     <div class="header-input">
       <span class="iconfont search">&#xe8ba;</span>
+      <input class="header-search" type="text" />
     </div>
     <router-link to="/city">
       <div class="header-right">
         {{ this.city }}
         <span class="iconfont xiahua">&#xe6c8;</span>
-      </div></router-link>
-    
+      </div></router-link
+    >
   </div>
 </template>
 
@@ -50,6 +51,16 @@ export default {
   left: 50%;
   top: 50%;
   transform: translate(-53%, -50%);
+}
+.header-search {
+  border: none;
+  position: absolute;
+  outline: none;
+  width: 80%;
+  height: 1.8rem;
+  left: 50%;
+  top: 50%;
+  transform: translate(-45%, -49%);
 }
 .search {
   position: absolute;

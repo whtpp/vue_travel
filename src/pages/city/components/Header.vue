@@ -1,8 +1,10 @@
 <template>
   <div class="header">
-      <router-link to="/">    <div class="header-left">
-      <span class="iconfont zuohua">&#xe655;</span>
-    </div></router-link>
+    <router-link to="/">
+      <div class="header-left">
+        <span class="iconfont zuohua">&#xe655;</span>
+      </div></router-link
+    >
 
     <p>城市选择</p>
   </div>
