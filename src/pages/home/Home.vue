@@ -26,6 +26,7 @@ export default {
     },
     data(){
       return {
+        lastCity:'',
         swiperList:[],
         weekendList:[],
       }
@@ -45,7 +46,14 @@ export default {
       }
     },
     mounted() {
+      this.lastCity = this.city
       this.getHomeInfo()
+    },
+    activated(){
+      if(this.lastCity!==this.city){
+        this.lastCity = this.city
+        this.getHomeInfo()
+      }
     }
 }
 </script>
