@@ -1,22 +1,74 @@
 <template>
-  <div class="city-search">
-    <div class="header-input">
-      <input class="header-search" type="text" placeholder="请输入城市名或拼音"/>
+  <div>
+    <div class="city-search">
+      <div class="header-input">
+        <input
+          v-model="keyword"
+          class="header-search"
+          type="text"
+          placeholder="请输入城市名或拼音"
+        />
+      </div>
+    </div>
+    <div class="search-content" ref="wrapper" v-show="keyword">
+      <ul>
+        <li class="search-item" v-for="item of list" :key="item">{{ item.name }}</li>
+        <li v-show="this.list.length==0">没有匹配数据</li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
+// import Bscroll from "better-scroll";
 export default {
   name: "CitySearch",
+  props: {
+    cities: Object,
+  },
+  data() {
+    return {
+      keyword: "",
+      list: [],
+      timer: null,
+    };
+  },
+  // mounted() {
+  //   this.scroll = new Bscroll(this.$refs.wrapper);
+  // },
+  watch: {
+    keyword() {
+      if (this.timer) {
+        clearTimeout(this.timer);
+      }
+      if(!this.keyword){
+        this.list = [];
+        return;
+      }
+      this.timer = setTimeout(() => {
+        const result = [];
+        for (let i in this.cities) {
+          this.cities[i].forEach((value) => {
+            if (
+              value.spell.indexOf(this.keyword) > -1 ||
+              value.name.indexOf(this.keyword) > -1
+            ) {
+              result.push(value);
+            }
+          });
+        }
+        this.list = result;
+      }, 100);
+    },
+  },
 };
 </script>
 
 <style scoped>
 .city-search {
-    position: relative;
-    height:3rem;
-    background-color: antiquewhite;
+  position: relative;
+  height: 3rem;
+  background-color: antiquewhite;
 }
 .header-input {
   position: absolute;
@@ -36,8 +88,8 @@ export default {
   border-radius: 1rem;
   left: 50%;
   top: 50%;
-  padding:0 1.5rem; 
-  font-size:1.1rem;
+  padding: 0 1.5rem;
+  font-size: 1.1rem;
   transform: translate(-45%, -49%);
 }
 .search {
@@ -46,5 +98,19 @@ export default {
   color: rgb(212, 196, 151);
   top: 50%;
   transform: translate(160%, -40%);
+}
+.search-content {
+  position: absolute;
+  top: 6.7rem;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  color: rgb(122, 120, 120);
+  background-color: rgb(250, 235, 215);
+}
+.search-item {
+  line-height: 2rem;
+  padding-left: 1.5rem;
+  font-size: 1.1rem;
 }
 </style>

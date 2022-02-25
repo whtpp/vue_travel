@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  name: " CityAlphabet",
+  name: "So",
   props: {
     cities: Object,
   },

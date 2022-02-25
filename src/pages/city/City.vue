@@ -1,10 +1,10 @@
 <template>
   <div>
     <city-header></city-header>
-    <city-search></city-search>
+    <city-search :cities="cities"></city-search>
     <city-list :letter="letter" :cities="cities" :hotCities="hotCities"></city-list>
-    <city-alphabet :cities="cities"
-    @change="handleChange"></city-alphabet>
+    <so :cities="cities"
+    @change="handleChange"></so>
   </div>
 </template>
 
@@ -13,14 +13,14 @@ import axios from 'axios'
 import CityHeader from "../city/components/Header.vue";
 import CitySearch from "../city/components/Search.vue";
 import CityList from "../city/components/List.vue";
-import CityAlphabet from "../city/components/Alphabet.vue";
+import So from "../city/components/Al.vue";
 export default {
   name: "City",
   components: {
     CityHeader,
     CitySearch,
     CityList,
-    CityAlphabet
+    So
   },
   data(){
     return {
