@@ -12,8 +12,10 @@
     </div>
     <div class="search-content" ref="wrapper" v-show="keyword">
       <ul>
-        <li class="search-item" v-for="item of list" :key="item">{{ item.name }}</li>
-        <li v-show="this.list.length==0">没有匹配数据</li>
+        <li @click="handleCity(item.name)" class="search-item" v-for="item of list" :key="item">
+          {{ item.name }}
+        </li>
+        <li v-show="this.list.length == 0">没有匹配数据</li>
       </ul>
     </div>
   </div>
@@ -33,6 +35,13 @@ export default {
       timer: null,
     };
   },
+  methods: {
+    handleCity(city) {
+      console.log(city);
+      this.$store.commit("changeCity", city);
+      this.$router.push('/')
+    },
+  },
   // mounted() {
   //   this.scroll = new Bscroll(this.$refs.wrapper);
   // },
@@ -41,7 +50,7 @@ export default {
       if (this.timer) {
         clearTimeout(this.timer);
       }
-      if(!this.keyword){
+      if (!this.keyword) {
         this.list = [];
         return;
       }
