@@ -10,7 +10,7 @@ Vue.use(VueAwesomeSwiper);
 import "../src/assets/style/reset.css";
 import "../src/assets/style/border.css";
 import FastClick from "fastclick";
-import "../src/assets/style/font_3198468_l4ku47akeo/iconfont.css";
+import "../src/assets/style/font_3198468_vqwpa9in5c/iconfont.css";
 Vue.config.productionTip = false;
 // fastClick.attach(document.body);
 
