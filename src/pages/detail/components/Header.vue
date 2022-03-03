@@ -32,8 +32,8 @@ export default {
 
       if (top > 60) {
         this.showabs = false;
-        let opacity = top/300;
-        opacity = opacity>1?1:opacity;
+        let opacity = top / 300;
+        opacity = opacity > 1 ? 1 : opacity;
         this.opacityStyle = {
           opacity,
         };
@@ -44,6 +44,9 @@ export default {
   },
   activated() {
     window.addEventListener("scroll", this.handleScroll);
+  },
+  deactivated() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
 };
 </script>
