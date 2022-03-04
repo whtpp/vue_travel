@@ -10,13 +10,18 @@
         </div>
       </div>
     </div>
-    <div @close="handleGallaryClose" v-show="showGallary">
-      <banner-gallary :imgs="bannerImgs" v-show="showGallary"></banner-gallary>
-    </div>
+    <fade-animation>
+      <banner-gallary
+        @close="handleGallaryClose"
+        :imgs="bannerImgs"
+        v-show="showGallary"
+      ></banner-gallary>
+    </fade-animation>
   </div>
 </template>
 
 <script>
+import FadeAnimation from '../../../common/fade/FadeAnimation.vue';
 import BannerGallary from "../../../common/gallary/Gallary.vue";
 export default {
   name: "DetailBanner",
@@ -41,6 +46,8 @@ export default {
   },
   components: {
     BannerGallary,
+    FadeAnimation,
+    FadeAnimation,
   },
 };
 </script>
