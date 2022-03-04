@@ -61,4 +61,9 @@ export default {
   color:#fff;
   bottom:-5rem;
 }
+.gallary-img {
+  width:100%;
+  height:20rem;
+
+}
 </style>

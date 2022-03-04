@@ -1,19 +1,18 @@
 <template>
   <div>
-    <div class="detail-banner">
-      <img
-        class="banner-img"
-        src="https://sales.mafengwo.net/mfs/s17/M00/28/F6/CoUBXl9shquAJyfhAAWcE-LvHQQ74.jpeg?imageMogr2%2Fthumbnail%2F%21400x300r%2Fgravity%2FCenter%2Fcrop%2F%21400x300%2Fquality%2F100"
-      />
+    <div class="detail-banner" @click="handleBannerClick">
+      <img class="banner-img" :src="bannerImg" />
       <div class="info">
-        <div class="banner-title">丽江玉龙雪山门票</div>
+        <div class="banner-title">{{ this.sightName }}</div>
         <div class="banner-number">
           <span class="iconfont">&#xe6b2;</span>
-          39
+          {{ this.bannerImgs.length }}
         </div>
       </div>
     </div>
-    <!-- <banner-gallary :imgs="imgs"></banner-gallary> -->
+    <div @close="handleGallaryClose" v-show="showGallary">
+      <banner-gallary :imgs="bannerImgs" v-show="showGallary"></banner-gallary>
+    </div>
   </div>
 </template>
 
@@ -21,10 +20,24 @@
 import BannerGallary from "../../../common/gallary/Gallary.vue";
 export default {
   name: "DetailBanner",
-  data(){
-      return{
-          imgs:[]
-      }
+  props: {
+    sightName: String,
+    bannerImg: String,
+    bannerImgs: Array,
+  },
+  data() {
+    return {
+      showGallary: false,
+    };
+  },
+  methods: {
+    handleBannerClick() {
+      this.showGallary = true;
+    },
+    handleGallaryClose() {
+      this.showGallary = false;
+      console.log("2");
+    },
   },
   components: {
     BannerGallary,
