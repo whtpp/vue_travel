@@ -1,44 +1,36 @@
 <template>
   <div class="header">
+    城市选择
     <router-link to="/">
-      <div class="header-left">
-        <span class="iconfont zuohua">&#xe655;</span>
-      </div></router-link
-    >
-
-    <p>城市选择</p>
+      <div class="iconfont header-back">&#xe6ac;</div>
+    </router-link>
   </div>
 </template>
 
 <script>
 export default {
-  name: "CityHeader",
-};
+  name: 'CityHeader'
+}
 </script>
 
-<style scoped>
-.header {
-  position: relative;
-  height: 4rem;
-  background-color: rgb(230, 176, 96);
-}
-.header-left {
-  width: 4rem;
-  float: left;
-}
-.zuohua {
-  position: absolute;
-  font-size: 2rem;
-  color: #fff;
-  top: 50%;
-  transform: translate(55%, -50%);
-}
-p {
-  text-align: center;
-  line-height: 4rem;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.15rem;
-}
+<style lang="stylus" scoped>
+  $bgColor = linear-gradient(to right, rgb(205, 153, 185) , rgb(131, 163, 236))
+  $headerHeight = .86rem
+  .header
+    position: relative
+    overflow: hidden
+    height: $headerHeight
+    line-height: $headerHeight
+    text-align: center
+    color: #fff
+    background: $bgColor
+    font-size: .32rem
+    .header-back
+      position: absolute
+      top: 0
+      left: 0
+      width: .64rem
+      text-align: center
+      font-size: .4rem
+      color: #fff
 </style>

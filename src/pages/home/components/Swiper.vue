@@ -1,61 +1,65 @@
 <template>
-  <div class="swiper">
-    <swiper :options="swiperOptions">
-      <swiper-slide v-for="item of slideImg" :key="item.id">
-        <img class="swiper-img" :src="item.imgSrc" />
+  <div class="wrapper">
+    <!-- 轮播图外面加一个div，防止图片未加载出来时下面文字占用当前位置（抖动） -->
+    <swiper :options="swiperOption" v-if="showSwiper">
+    <!-- <swiper :options="swiperOption"> -->
+      <swiper-slide v-for="item of swiperList" :key="item.id">
+        <img class="swiper-img" :src="item.imgUrl" />
       </swiper-slide>
-      <div class="swiper-pagination" slot="pagination"></div>
+      <div class="swiper-pagination"  slot="pagination"></div>
     </swiper>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HomeSwiper",
-  props:{
-    list:Array,
+  name: 'HomeSwiper',
+  props: {
+    list: Array
   },
-  data() {
+  data () {
     return {
-      swiperOptions: {
-        pagination: ".swiper-pagination",
+      swiperOption: {
+        pagination: '.swiper-pagination',
+        autoplay: 3000,
+        loop: true
       },
-      slideImg: [
-        {
-          id: "1",
-          imgSrc: "https://p1-q.mafengwo.net/s19/M00/07/3F/CoNKSGHypS1bxEDbAAXCAgzuf24.jpg?imageMogr2%2Fthumbnail%2F%21440x300r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21440x300%2Fquality%2F90",
-        },
-        {
-          id: "2",
-          imgSrc: "https://b3-q.mafengwo.net/s13/M00/71/D6/wKgEaVyd7i6AFjCjAADni5x-vvY89.jpeg",
-        },
-        {
-          id: "3",
-          imgSrc: "https://p1-q.mafengwo.net/s18/M00/12/D6/CoUBYGFmzEuAJzoNAAkW01xyxQY259.jpg?imageMogr2%2Fthumbnail%2F%21440x300r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21440x300%2Fquality%2F90",
-        },
-        {
-          id: "4",
-          imgSrc: "https://note.mafengwo.net/img/aa/48/cd476d8ddbfb7a8d5815d472033e77d4.jpeg?imageMogr2%2Fthumbnail%2F%21440x300r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21440x300%2Fquality%2F90",
-        },
-      ],
-    };
+      swiperList: [{
+        id: '0001',
+        imgUrl: 'http://img1.qunarzz.com/piao/fusion/1801/1a/94428c6dea109402.jpg_640x200_2cf590d8.jpg'
+      }, {
+        id: '0002',
+        imgUrl: 'http://img1.qunarzz.com/piao/fusion/1802/42/7c92b9a381e46402.jpg_640x200_1cdce2a4.jpg'
+      }, {
+        id: '0003',
+        imgUrl: 'http://img1.qunarzz.com/piao/fusion/1802/51/e78f936a5b404102.jpg_640x200_c14f0b3a.jpg'
+      }, {
+        id: '0004',
+        imgUrl: 'http://img1.qunarzz.com/piao/fusion/1712/91/a275569091681d02.jpg_640x200_0519ccb9.jpg'
+      }]
+    }
   },
-};
+  // 使轮播图默认显示第一张图片
+  computed: {
+    showSwiper () {
+      return this.list.length
+    }
+  }
+}
 </script>
+  <!-- 样式穿透 -->
+  <!-- 长宽比31.25自适应写法 -->
+<style lang="stylus" scoped>
 
-<style scoped>
-.swiper >>> .swiper-pagination-bullet-active {
-  background-color: #fff !important;
-}
-.swiper {
-  width: 100%;
-  overflow: hidden;
-  height: 0;
-  padding-bottom: 55.72%;
-}
-.swiper-img {
-  width: 100%;
-  height: 16rem;
-  margin-top: 0.5rem;
-}
+  .wrapper >>> .swiper-pagination-bullet-active
+    background: #fff
+
+  .wrapper
+    overflow: hidden
+    width: 100%
+    height: 0
+    padding-bottom: 31.25%
+    background: #eee
+    .swiper-img
+      width: 100%
 </style>

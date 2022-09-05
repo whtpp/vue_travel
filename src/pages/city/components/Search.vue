@@ -1,125 +1,125 @@
 <template>
   <div>
-    <div class="city-search">
-      <div class="header-input">
-        <input
-          v-model="keyword"
-          class="header-search"
-          type="text"
-          placeholder="请输入城市名或拼音"
-        />
-      </div>
+    <div class="search">
+      <input v-model="keyword" class="search-input" type="text" placeholder="输入城市名或拼音" />
     </div>
-    <div class="search-content" ref="wrapper" v-show="keyword">
+    <div
+      class="search-content"
+      ref="search"
+      v-show="keyword"
+    >
+    <!-- 遍历可能的检索数据 -->
       <ul>
-        <li @click="handleCity(item.name)" class="search-item" v-for="item of list" :key="item">
-          {{ item.name }}
+        <li
+          class="search-item border-bottom"
+          v-for="item of list"
+          :key="item.id"
+          @click="handleCityClick(item.name)"
+        >
+          {{item.name}}
         </li>
-        <li v-show="this.list.length == 0">没有匹配数据</li>
+        <li class="search-item border-bottom" v-show="hasNoData">
+          没有找到匹配数据
+        </li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
-// import Bscroll from "better-scroll";
+import Bscroll from 'better-scroll'
+// import { mapMutations } from 'vuex'
 export default {
-  name: "CitySearch",
+  name: 'CitySearch',
   props: {
-    cities: Object,
+    cities: Object
   },
-  data() {
+  data () {
+    // 搜索功能：
+    // 1.将input中的关键词与数据进行用v-model双向绑定
+    // 2.用watch侦听关键词改变
     return {
-      keyword: "",
+      keyword: '',
       list: [],
-      timer: null,
-    };
+      timer: null
+      // 节流变量
+    }
   },
-  methods: {
-    handleCity(city) {
-      console.log(city);
-      this.$store.commit("changeCity", city);
-      this.$router.push('/')
-    },
+  // 如果list为空，展示。。。页面
+  computed: {
+    hasNoData () {
+      return !this.list.length
+    }
   },
-  // mounted() {
-  //   this.scroll = new Bscroll(this.$refs.wrapper);
-  // },
   watch: {
-    keyword() {
+    keyword () {
       if (this.timer) {
-        clearTimeout(this.timer);
+        clearTimeout(this.timer)
       }
       if (!this.keyword) {
-        this.list = [];
-        return;
+        this.list = []
+        return
       }
       this.timer = setTimeout(() => {
-        const result = [];
+        // 定义一个结果数组，遍历每一项城市数据，用indexof寻找关键词，
+        // 如果能检索到，将该项加入结果数组,最后加入list数据
+        const result = []
         for (let i in this.cities) {
           this.cities[i].forEach((value) => {
-            if (
-              value.spell.indexOf(this.keyword) > -1 ||
-              value.name.indexOf(this.keyword) > -1
-            ) {
-              result.push(value);
+            if (value.spell.indexOf(this.keyword) > -1 || value.name.indexOf(this.keyword) > -1) {
+              result.push(value)
             }
-          });
+          })
         }
-        this.list = result;
-      }, 100);
-    },
+        this.list = result
+      }, 200)
+    }
   },
-};
+  methods: {
+    // handleCityClick (city) {
+    //   this.changeCity(city)
+    //   this.$router.push('/')
+    // },
+    // ...mapMutations(['changeCity'])
+    handleCityClick (city) {
+      this.$store.commit('changeCity', city)
+      this.$router.push('/')
+    }
+    // 遇到问题：better-scroll事件生效时点击事件无效，解决：设置click为true
+  },
+  mounted () {
+    this.scroll = new Bscroll(this.$refs.search, {observeDOM: true, click: true})
+  }
+}
 </script>
 
-<style scoped>
-.city-search {
-  position: relative;
-  height: 3rem;
-  background-color: antiquewhite;
-}
-.header-input {
-  position: absolute;
-  height: 2.5rem;
-  width: 100%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-55%, -50%);
-}
-.header-search {
-  box-sizing: border-box;
-  border: none;
-  position: absolute;
-  outline: none;
-  width: 80%;
-  height: 1.8rem;
-  border-radius: 1rem;
-  left: 50%;
-  top: 50%;
-  padding: 0 1.5rem;
-  font-size: 1.1rem;
-  transform: translate(-45%, -49%);
-}
-.search {
-  position: absolute;
-  font-size: 1.3rem;
-  color: rgb(212, 196, 151);
-  top: 50%;
-  transform: translate(160%, -40%);
-}
-.search-content {
-  position: absolute;
-  top: 6.7rem;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  color: rgb(122, 120, 120);
-  background-color: rgb(250, 235, 215);
-}
-.search-item {
-  line-height: 2rem;
-  padding-left: 1.5rem;
-  font-size: 1.1rem;
-}
+<style lang="stylus" scoped>
+  $bgColor = linear-gradient(to right, rgb(205, 153, 185) , rgb(131, 163, 236))
+  .search
+    height: .72rem
+    padding: 0 .1rem
+    background: $bgColor
+    .search-input
+      box-sizing: border-box
+      width: 100%
+      height: .62rem
+      padding: 0 .1rem
+      line-height: .62rem
+      text-align: center
+      border-radius: .06rem
+      color: #666
+  .search-content
+    z-index: 1
+    overflow: hidden
+    position: absolute
+    top: 1.58rem
+    left: 0
+    right: 0
+    bottom: 0
+    background: #eee
+    .search-item
+      line-height: .62rem
+      padding-left: .2rem
+      background: #fff
+      color: #666
 </style>

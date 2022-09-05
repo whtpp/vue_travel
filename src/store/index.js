@@ -1,17 +1,11 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue'
+import Vuex from 'vuex'
 import state from './state'
-Vue.use(Vuex);
+import mutations from './mutations'
 
+Vue.use(Vuex)
+// 导出vuex仓库
 export default new Vuex.Store({
   state,
-  mutations:{
-    changeCity(state, city) {
-      state.city = city;
-      try {
-        localStorage.city = city;
-      } catch (e) {}
-    }
-  }
-});
-
+  mutations
+})

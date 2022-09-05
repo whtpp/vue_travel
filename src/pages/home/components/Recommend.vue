@@ -1,20 +1,19 @@
 <template>
   <div>
-    <div class="recommend">热销推荐</div>
+    <div class="title">热销推荐</div>
     <ul>
       <router-link
-        :to="'/detail/' + item.id"
-        class="item"
-        v-for="item of recommendList"
+        tag="li"
+        class="item border-bottom"
+        v-for="item of this.list"
         :key="item.id"
+        :to="'/detail/' + item.id"
       >
-        <div class="item-img-wrapper">
-          <img class="item-img" :src="item.imgUrl" />
-        </div>
+        <img class="item-img" :src="item.imgUrl" />
         <div class="item-info">
-          <p class="item-title">{{ item.title }}</p>
-          <p class="item-desc">{{ item.desc }}</p>
-          <a class="item-a" href="">更多 ></a>
+          <p class="item-title">{{item.title}}</p>
+          <p class="item-desc">{{item.desc}}</p>
+          <button class="item-button">查看详情</button>
         </div>
       </router-link>
     </ul>
@@ -23,105 +22,78 @@
 
 <script>
 export default {
-  name: "HomeRecommend",
-  data() {
-    return {
-      recommendList: [
-        {
-          id: "1",
-          imgUrl:
-            "https://imgs.qunarzz.com/p/p70/1809/e7/4941057a6aae702.jpg_256x160_9fee6ccb.jpg",
-          title: "汉中-丽江",
-          desc: "含往返飞机票+4晚住宿",
-        },
-        {
-          id: "2",
-          imgUrl:
-            "https://imgs.qunarzz.com/p/p97/1512/73/97da2a9e39df59f7.jpg_256x160_acb41adf.jpg",
-          title: "西安-成都",
-          desc: "含往返高铁票+5晚住宿",
-        },
-        {
-          id: "3",
-          imgUrl:
-            "https://imgs.qunarzz.com/p/p56/201302/28/6baf0a3dc2f7735893835fbb.jpg_256x160_4a6c8651.jpg",
-          title: "九寨沟-杭州",
-          desc: "含往返飞机票+2晚住宿",
-        },
-        {
-          id: "4",
-          imgUrl:
-            "https://imgs.qunarzz.com/p/p79/1409/28/e1f419f40bdd09fcffffffffc8d65eac.jpg_256x160_518b48fb.jpg",
-          title: "安康-西岭雪山",
-          desc: "含单次高铁票+6晚住宿",
-        },
-        {
-          id: "5",
-          imgUrl:
-            "https://img1.qunarzz.com/sight/p0/1902/d4/d4abab5d2b8b3238a3.img.jpg_256x160_196d32fc.jpg",
-          title: "大唐芙蓉园",
-          desc: "皇家御园再现辉煌",
-        },
-        {
-          id: "6",
-          imgUrl:
-            "https://img1.qunarzz.com/sight/p0/1411/61/d92ba6a30aa12eb0a9a4a9c82214cb8e.water.jpg_256x160_f46ee4c5.jpg",
-          title: "秦始皇陵博物馆",
-          desc: "皇帝的地下御林军",
-        },
-        {
-          id: "7",
-          imgUrl:
-            "https://img1.qunarzz.com/sight/p0/1602/de/de8400021b664c5390.img.jpg_256x160_c047d903.jpg",
-          title: "华清宫",
-          desc: "唐玄宗与杨贵妃的共浴之地",
-        },
-      ],
-    };
+  name: 'HomeRecommend',
+  props: {
+    list: Array
   },
-};
+  data () {
+    return {
+      // recommendList: [{
+      //   id: '0001',
+      //   imgUrl: 'http://img1.qunarzz.com/sight/p0/1409/19/adca619faaab0898245dc4ec482b5722.jpg_140x140_80f63803.jpg',
+      //   title: '故宫',
+      //   desc: '东方宫殿建筑代表，世界宫殿建筑典范'
+      // }, {
+      //   id: '0002',
+      //   imgUrl: 'http://img1.qunarzz.com/sight/p0/1511/d2/d2aec2dfc5aa771290.water.jpg_140x140_abb362a7.jpg',
+      //   title: '南山滑雪场',
+      //   desc: '北京专业级滑雪圣地'
+      // }, {
+      //   id: '0003',
+      //   imgUrl: 'http://img1.qunarzz.com/sight/p0/1501/f4/f467729126949c3a.water.jpg_140x140_ef235b1c.jpg',
+      //   title: '天安门广场',
+      //   desc: '我爱北京天安门，天安门上太阳升'
+      // }, {
+      //   id: '0004',
+      //   imgUrl: 'http://img1.qunarzz.com/sight/p0/1501/40/40b2b6c951b28fdd.water.jpg_140x140_1c863e5c.jpg',
+      //   title: '水立方',
+      //   desc: '中国的荣耀，阳光下的晶莹水滴'
+      // }, {
+      //   id: '0005',
+      //   imgUrl: 'http://img1.qunarzz.com/sight/p0/201308/23/b283071686e64dfec8d65eac.jpg_140x140_8c5a7c49.jpg',
+      //   title: '温都水城养生馆',
+      //   desc: '各种亚热带植物掩映其间仿佛置身热带雨林'
+      // }]
+    }
+  }
+}
 </script>
 
-<style scoped>
-.recommend {
-  font-size: 1.3rem;
-  margin: 0.4rem;
-  color: rgb(117, 116, 116);
-  height: 0;
-  font-weight: 700;
-  text-align: center;
-  padding-bottom: 5%;
-  letter-spacing: 0.2rem;
-  background-color: rgb(208, 233, 198);
-}
-.item {
-  height: 0;
-  padding-bottom: 8rem;
-}
-.item-img-wrapper {
-  display: inline-block;
-  width: 40%;
-  padding-left: 0.3rem;
-}
-.item-img {
-  width: 100%;
-}
-.item-info {
-  display: inline-block;
-  width: 55%;
-  float: right;
-}
-.item-title,
-.item-desc {
-  line-height: 1.2rem;
-  padding: 0.5rem;
-  font-size: 1.2rem;
-  color: rgb(61, 58, 58);
-}
-.item-a {
-  float: right;
-  margin-right: 1rem;
-  margin-top: 0.5rem;
-  font-size: 1.1rem;
-}
+<style lang="stylus" scoped>
+  .title
+    margin-top: .2rem
+    line-height: .8rem
+    background:  linear-gradient(to right,#F2F2F2,#DBDBDB,#EAEAEA)
+    text-indent: .2rem
+  .item
+    overflow: hidden
+    display: flex
+    height: 1.9rem
+    .item-img
+      width: 1.7rem
+      height: 1.7rem
+      padding: .1rem
+    .item-info
+      flex: 1
+      padding: .1rem
+      min-width: 0
+      .item-title
+        line-height: .54rem
+        font-size: .32rem
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+      .item-desc
+        line-height: .4rem
+        color: #F7FFF7
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+      .item-button
+        line-height: .44rem
+        margin-top: .16rem
+        background: #ff9300
+        padding: 0 .2rem
+        border-radius: .06rem
+        color: #fff
 </style>

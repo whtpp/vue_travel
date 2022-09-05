@@ -1,12 +1,12 @@
 <template>
-  <div class="container">
+  <div class="container" @click="handleGallaryClick">
     <div class="wrapper">
-      <swiper  class="swiper-container" :options="swiperOptions">
-        <swiper-slide v-for="(item,index) in imgs" :key="index">
-          <img
-            class="gallary-img"
-            :src="item"
-          />
+      <swiper :options="swiperOptions">
+        <swiper-slide
+          v-for="(item, index) in imgs"
+          :key="index"
+        >
+          <img class="gallary-img" :src="item" />
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
@@ -16,54 +16,56 @@
 
 <script>
 export default {
-  name: "BannerGallary",
-  props:{
-    imgs:{
+  name: 'CommonGallary',
+  props: {
+    imgs: {
       type: Array,
-      default() {
+      default () {
         return []
       }
     }
   },
-  data(){
+  data () {
     return {
-      swiperOptions:{
+      swiperOptions: {
         pagination: '.swiper-pagination',
-        paginationType:'fraction'
+        paginationType: 'fraction',
+        // 分页器
+        observeParents: true,
+        observer: true
+        // 作用：当父组件dom发生变化时进行自我刷新
       }
     }
+  },
+  methods: {
+    handleGallaryClick () {
+      this.$emit('close')
+    }
   }
-};
+}
 </script>
 
-<style scoped>
-.container>>>.swiper-container{
-  overflow: inherit;
-}
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  z-index: 99;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top:0;
-  background-color: #000;
-}
-.wrapper {
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%;
-}
-.swiper-pagination {
-  color:#fff;
-  bottom:-5rem;
-}
-.gallary-img {
-  width:100%;
-  height:20rem;
-
-}
+<style lang="stylus" scoped>
+  .container >>> .swiper-container
+    overflow: inherit
+  .container
+    display: flex
+    flex-direction: column
+    justify-content: center
+    z-index: 99
+    position: fixed
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+    background: #000
+    .wrapper
+      height: 0
+      width: 100%
+      padding-bottom: 100%
+      .gallary-img
+        width: 100%
+      .swiper-pagination
+        color: #fff
+        bottom: -1rem
 </style>

@@ -2,55 +2,64 @@
   <div>
     <city-header></city-header>
     <city-search :cities="cities"></city-search>
-    <city-list :letter="letter" :cities="cities" :hotCities="hotCities"></city-list>
-    <so :cities="cities"
-    @change="handleChange"></so>
+    <city-list
+      :cities="cities"
+      :hot="hotCities"
+      :letter="letter"
+    ></city-list>
+    <city-alphabet
+      :cities="cities"
+      @change="handleLetterChange"
+    ></city-alphabet>
+    <!-- 设置监听事件接收字母表发送的数据 -->
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import CityHeader from "../city/components/Header.vue";
-import CitySearch from "../city/components/Search.vue";
-import CityList from "../city/components/List.vue";
-import So from "../city/components/Al.vue";
+import CityHeader from './components/Header'
+import CitySearch from './components/Search'
+import CityList from './components/List'
+import CityAlphabet from './components/Alphabet'
 export default {
-  name: "City",
+  name: 'City',
   components: {
     CityHeader,
     CitySearch,
     CityList,
-    So
+    CityAlphabet
   },
-  data(){
+  data () {
     return {
       cities: {},
-      hotCities:[],
-      letter:'',
+      hotCities: [],
+      letter: ''
     }
   },
-  methods:{
-    handleChange(letter){
-      this.letter = letter;
-      console.log(letter);
+  methods: {
+    getCityInfo () {
+      axios.get('/api/city.json')
+        .then(this.handleGetCityInfoSucc)
     },
-    getCityInfo(){
-      axios.get('/api/city.json').then(this.handleInfo)
-    },
-    handleInfo(res){
-      res=res.data;
-      if(res.ret&&res.data) {
+    handleGetCityInfoSucc (res) {
+      res = res.data
+      if (res.ret && res.data) {
         const data = res.data
         this.cities = data.cities
         this.hotCities = data.hotCities
       }
+    },
+    // 接收到点击的字母并保存到data中，然后父传子传给list
+    handleLetterChange (letter) {
+      this.letter = letter
     }
   },
-  mounted(){
+  mounted () {
     this.getCityInfo()
-  } 
-};
+  }
+}
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
+
 </style>

@@ -7,3 +7,4 @@ indent_size = 2
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
+# 点击tab缩进为2，该文件设置了一些编辑器的语法，统一规范代码

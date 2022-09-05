@@ -1,85 +1,73 @@
 <template>
   <div class="header">
     <div class="header-left">
-      <span class="iconfont zuohua">&#xe655;</span>
+      <div class="iconfont back-icon">&#xe6ac;</div>
     </div>
     <div class="header-input">
-      <span class="iconfont search">&#xe8ba;</span>
-      <input class="header-search" type="text" />
+      <span class="iconfont">&#xe8ba;</span>
+      输入城市/景点/游玩主题
     </div>
-    <router-link to="/city">
-      <div class="header-right">
-        {{ this.$store.state.city }}
-        <span class="iconfont xiahua">&#xe6c8;</span>
-      </div></router-link
-    >
+    <router-link to='/city'>
+    <div class="header-right">
+      {{this.$store.state.city}}
+      <span class="iconfont arrow-icon">&#xe600;</span>
+    </div>
+    </router-link>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-  name: "HomeHeader",
-};
+  name: 'HomeHeader',
+  computed: {
+    ...mapState(['city'])
+  }
+}
 </script>
 
-<style scoped>
-.header {
-  position: relative;
-  height: 4rem;
-  background-color: rgb(202, 236, 106);
-}
-.header-left {
-  width: 4rem;
-  float: left;
-}
-.zuohua {
-  position: absolute;
-  font-size: 2rem;
-  color: rgb(129, 129, 129);
-  top: 50%;
-  transform: translate(55%, -50%);
-}
-.header-input {
-  position: absolute;
-  height: 2.5rem;
-  background-color: #fff;
-  width: 20rem;
-  border-radius: 0.5rem;
-  left: 50%;
-  top: 50%;
-  transform: translate(-53%, -50%);
-}
-.header-search {
-  border: none;
-  position: absolute;
-  outline: none;
-  width: 80%;
-  height: 1.8rem;
-  left: 50%;
-  top: 50%;
-  transform: translate(-45%, -49%);
-}
-.search {
-  position: absolute;
-  font-size: 1.3rem;
-  color: rgb(126, 123, 123);
-  top: 50%;
-  transform: translate(70%, -40%);
-}
-.header-right {
-  position: absolute;
-  right: 0;
-  min-width: 4.3rem;
-  text-align: left;
-  line-height: 4rem;
-  color: rgb(114, 113, 113);
-  font-size: 1.2rem;
-  letter-spacing: 0.2rem;
-}
-.xiahua {
-  position: absolute;
-  color: rgb(110, 108, 108);
-  right: 0.2rem;
-}
-</style>
+<style lang="stylus" scoped>
+  $bgColor = linear-gradient(to right, rgb(205, 153, 185) , rgb(131, 163, 236))
+  $headerHeight = .86rem
+   .header {
+     display: flex;
+     line-height: $headerHeight;
+     background: $bgColor;
+     color: #fff;
 
+     .header-left {
+       width: 0.64rem;
+       float: left;
+
+       .back-icon {
+         text-align: center;
+         font-size: 0.4rem;
+       }
+     }
+
+     .header-input {
+       flex: 1;
+       height: 0.64rem;
+       line-height: 0.64rem;
+       margin-top: 0.12rem;
+       margin-left: 0.2rem;
+       padding-left: 0.2rem;
+       background: #fff;
+       border-radius: 0.1rem;
+       color: #ccc;
+     }
+
+     .header-right {
+       min-width: 1.04rem;
+       padding: 0 0.1rem;
+       float: right;
+       text-align: center;
+       color: #fff;
+
+       .arrow-icon {
+         margin-left: -0.04rem;
+         font-size: 0.24rem;
+       }
+     }
+   }
+  </style>

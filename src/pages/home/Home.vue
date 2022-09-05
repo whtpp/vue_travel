@@ -1,65 +1,75 @@
 <template>
-  <div class="home">
-    <home-header></home-header> 
-    <home-swiper :list="swiperList"></home-swiper>
-    <home-icons></home-icons>
-    <home-recommend></home-recommend>
-    <home-weekend :list="weekendList"></home-weekend>
+  <div>
+  <home-header></home-header>
+  <home-swiper :list="swiperList"></home-swiper>
+  <home-icon :list="iconList"></home-icon>
+  <home-recommend :list="recommendList"></home-recommend>
+  <home-weekend :list="recommendList"></home-weekend>
   </div>
 </template>
 
 <script>
+import HomeHeader from './components/Header.vue'
+import HomeSwiper from './components/Swiper'
+import HomeIcon from './components/Icons.vue'
+import HomeRecommend from './components/Recommend.vue'
+import HomeWeekend from './components/Weekend.vue'
 import axios from 'axios'
-import HomeHeader from '../home/components/Header.vue'
-import HomeSwiper from '../home/components/Swiper.vue'
-import HomeIcons from '../home/components/Icons.vue'
-import HomeRecommend from '../home/components/Recommend.vue'
-import HomeWeekend from '../home/components/weekend.vue'
+// import { mapState } from 'vuex'
 export default {
-    name: 'Home',
-    components: {
-      HomeHeader,
-      HomeSwiper,
-      HomeIcons,
-      HomeRecommend,
-      HomeWeekend
+  name: 'Home',
+  components: {
+    HomeHeader,
+    HomeSwiper,
+    HomeIcon,
+    HomeRecommend,
+    HomeWeekend
+  },
+  data () {
+    return {
+      swiperList: [],
+      iconList: [],
+      recommendList: [],
+      weekendList: []
+    }
+  },
+  // computed: {
+  //   ...mapState(['city'])
+  // },
+  methods: {
+    getHomeInfo () {
+      axios.get('/api/index.json')
+        .then(this.getHomeInfoSucc)
     },
-    data(){
-      return {
-        lastCity:'',
-        swiperList:[],
-        weekendList:[],
+    getHomeInfoSucc (res) {
+      res = res.data
+      if (res.ret && res.data) {
+        const data = res.data
+        this.swiperList = data.swiperList
+        this.iconList = data.iconList
+        this.recommendList = data.recommendList
+        this.weekendList = data.weekendList
       }
     },
-    methods:{
-      getHomeInfo(){
-        axios.get('/api/index.json').then(this.getHomeInfoSucc)
-      },
-      getHomeInfoSucc(res) {
-        res=res.data;
-        if(res.ret&&res.data){
-          const data = res.data;
-          this.swiperList = data.swiperList;
-          this.weekendList = data.weekendList;
-        }
-        console.log(res)
-      }
+    getCityInfo () {
+      axios.get('/api/city.json')
+        .then(this.getHomeInfoSucc)
     },
-    mounted() {
-      this.lastCity = this.city
-      this.getHomeInfo()
-    },
-    activated(){
-      if(this.lastCity!==this.city){
-        this.lastCity = this.city
-        this.getHomeInfo()
+    getCityInfoSucc (res) {
+      res = res.data
+      if (res.ret && res.data) {
+        const data = res.data
+        console.log(data)
       }
     }
+  },
+  mounted () {
+    this.getHomeInfo()
+    // this.getCityInfo()
+  }
 }
 </script>
 
-<style scoped>
-  .home{
-    background-color: rgb(246, 250, 237);
-  }
+<style>
+
 </style>

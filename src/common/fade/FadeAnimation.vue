@@ -1,22 +1,18 @@
 <template>
-    <transition>
-        <slot></slot>  
-    </transition>
+  <transition>
+    <slot></slot>
+  </transition>
 </template>
 
 <script>
 export default {
-    name:'Fade'
+  name: 'FadeAnimation'
 }
 </script>
-
-<style scoped>
-    .v-enter,
-    .v-leave-to{
-        opacity: 0;
-    }
-    .v-enter-active,
-    .v-leave-active{
-        transition: opacity 0.5s;
-    }
+<!-- 渐进渐出效果 -->
+<style lang="stylus" scoped>
+  .v-enter, .v-leave-to
+    opacity: 0
+  .v-enter-active, .v-leave-active
+    transition: opacity .5s
 </style>
